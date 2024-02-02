@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\v1;
 use App\Models\User;
 use App\Models\Certificate;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -59,7 +60,7 @@ class UserController extends Controller
             $SP_validated = $request->validate([
                 'image' => 'required',
                 'deposit_range' => 'required',
-                'service_type' => 'required',    
+                'service_type' => 'required', Rule::in(['boarder', 'healthcare']),  
                 'opening_hour' => 'required',
                 'closing_hour' => 'required',
                 'bank_name' => 'required',
@@ -158,8 +159,10 @@ class UserController extends Controller
     // show user's info  
     public function profile() 
     {
-        $user = auth('sanctum')->user();
+        $user_id = auth('sanctum')->user()->user_id;
 
+        $user = User::with('pets')->find($user_id);
+        
         return response()->json([
             'user' => $user
         ]);

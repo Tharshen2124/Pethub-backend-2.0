@@ -11,6 +11,7 @@ use App\Http\Controllers\api\v1\ReportController;
 use App\Http\Controllers\api\v1\CommentController;
 use App\Http\Controllers\api\v1\CategoryController;
 use App\Http\Controllers\api\v1\AppointmentController;
+use App\Http\Controllers\api\v1\ServiceProviderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,11 +39,18 @@ Route::group(['prefix' => 'v1'], function () {
         // user logout route
         Route::post('/logout', [UserController::class, 'logout']);
         
+        // user / service provider profile route
+        Route::get('/profile', [UserController::class, 'profile']);
+
         // user pet routes
         Route::apiResource('/pets', PetController::class)->only([
             'store', 'update', 'destroy'
         ]);
 
+        // service provider "healthcare" and "boarders" routes
+        Route::get('/healthcare', [ServiceProviderController::class, 'get_healthcare_facilties']);
+        Route::get('/boarder', [ServiceProviderController::class, 'get_boarders']);
+        
         // user appointment routes
         Route::post('/appointments', [AppointmentController::class, 'store']);
         Route::get('/appointments', [AppointmentController::class, 'index']);

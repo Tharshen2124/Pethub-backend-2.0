@@ -24,6 +24,7 @@ class UserController extends Controller
             'permission_level' => 'required',
             'contact_number' => 'required',
             'description' => 'required',
+            'image' => 'image',
         ]);
 
         if(gettype($validated['permission_level'] === "string")) 
@@ -37,9 +38,9 @@ class UserController extends Controller
         
         if($request->hasFile('image'))
         {
-            $image = $request->file('image')->store('public');
-            [$public, $img] = explode("/",$image);
-            $linkToImage = asset('storage/'.$img);
+            $profile = $request->file('image')->store('public/profile');
+            $img = basename($profile);
+            $linkToImage = asset('storage/avatar/'.$img);
         }
 
         if($permission_level === 1) 
@@ -59,7 +60,7 @@ class UserController extends Controller
         elseif($permission_level === 2) // register for service provider
         {
             $SP_validated = $request->validate([
-                'image' => 'required',
+                'image' => 'required | image',
                 'deposit_range' => 'required',
                 'service_type' => 'required', Rule::in(['boarder', 'healthcare']),  
                 'opening_hour' => 'required',
@@ -67,19 +68,19 @@ class UserController extends Controller
                 'bank_name' => 'required',
                 'beneficiary_acc_number' => 'required',
                 'beneficiary_name' => 'required',
-                'qr_code_image' => 'required | file',
+                'qr_code_image' => 'required | image',
                 'sssm_certificate' => 'required | file',
             ]);
 
             if($request->hasFile('sssm_certificate') && $request->hasFile('qr_code_image'))
             {
-                $qr_code_image = $request->file('qr_code_image')->store('public');
-                [$public2, $img2] = explode("/",$image);
-                $linkToQR = asset('storage/'.$img2);
+                $qr_code_image = $request->file('qr_code_image')->store('public/qr_code');
+                $img2 = basename($qr_code_image);
+                $linkToQR = asset('storage/qr_code/'.$img2);
                 
-                $sssm_certificate = $request->file('sssm_certificate')->store('public');
-                [$public2, $img3] = explode("/",$image);
-                $linkToCert = asset('storage/'.$img3);
+                $sssm_certificate = $request->file('sssm_certificate')->store('public/certs');
+                $img3 = basename($sssm_certificate);
+                $linkToCert = asset('storage/certs/'.$img3);
             }
 
             $user = User::create([

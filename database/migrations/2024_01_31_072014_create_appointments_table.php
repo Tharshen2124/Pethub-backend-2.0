@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('important_details');
             $table->text('issue_description');
             $table->string('appointment_status');
+            $table->string('upload_payment_proof')->nullable();
             $table->timestamp('created_at')->default(now());
         });
     }

@@ -10,6 +10,17 @@ use App\Http\Requests\UpdatePetRequest;
 
 class PetController extends Controller
 {
+    public function index()
+    {
+        $user_id = auth('sanctum')->user()->user_id;
+
+        $pets = Pet::where('user_id', $user_id)->get();
+
+        return response()->json([
+            'pets' => $pets
+        ]);
+    }
+
     // store a new pet 
     public function store(Request $request)
     {
@@ -19,8 +30,15 @@ class PetController extends Controller
             'type' => 'required', 
             'description' => 'required',
             'age' => 'required',
-            'image' => 'required | file',
+            'image' => 'required | image',
         ]);
+
+        if($request->hasFile('image'))
+        {
+            $pet_profile = $request->file('image')->store('public/pet_profile');
+            $img = basename($pet_profile);
+            $linkToImage = asset('storage/pet_profile/'.$img);
+        }
 
         Pet::create([
             'user_id' => $validated['user_id'],
@@ -29,7 +47,7 @@ class PetController extends Controller
             'breed' => $request->breed,
             'description' => $validated['description'],
             'age' => $validated['age'],
-            'image' => $validated['image'],
+            'image' => $linkToImage,
         ]);
 
         return response()->json([

@@ -24,11 +24,32 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'full_name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'permission_level' => fake()->numberBetween(1, 3),
+            'image' => fake()->randomElement([
+                'http://localhost/storage/profile/clinic_1.jpg', 
+                'http://localhost/storage/profile/clinic_2.jpg', 
+                'http://localhost/storage/profile/clinic_3.jpg',
+                'http://localhost/storage/profile/clinic_4.jpg', 
+                'http://localhost/storage/profile/clinic_5.jpg', 
+            ]),
+            'deposit_range' => fake()->randomFloat(1, 10, 20),
+            'service_type' => fake()->randomElement(['boarder', 'healthcare']),
+            'description' => fake()->paragraph(),
+            'contact_number' => fake()->numerify('+60-0##-#######'),
+            'opening_hour' => fake()->time() ,
+            'closing_hour' => fake()->time(),
+            'bank_name' => fake()->randomElement(['maybank', 'CIMB', 'RHB', 'DuitNow']),
+            'beneficiary_acc_number' => fake()->numberBetween(10000000, 100000000),
+            'beneficiary_name' => fake()->name(),
+            'qr_code_image' => fake()->randomElement([
+                'http://localhost/storage/qr_code/qr_image_1.jpg', 
+                'http://localhost/storage/qr_code/qr_image_2.jpg', 
+                'http://localhost/storage/qr_code/qr_image_3.jpg', 
+            ]),
+            'user_status' => fake()->randomElement(['accepted', 'rejected', 'pending'])
         ];
     }
 

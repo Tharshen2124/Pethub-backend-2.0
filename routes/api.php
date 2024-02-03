@@ -44,7 +44,7 @@ Route::group(['prefix' => 'v1'], function () {
 
         // user pet routes
         Route::apiResource('/pets', PetController::class)->only([
-            'store', 'update', 'destroy'
+           'index', 'store', 'update', 'destroy'
         ]);
 
         // service provider "healthcare" and "boarders" routes
@@ -53,6 +53,7 @@ Route::group(['prefix' => 'v1'], function () {
         
         // user appointment routes
         Route::post('/appointments', [AppointmentController::class, 'store']);
+        Route::post('/appointments/payment_proof/{aptid}', [AppointmentController::class, 'update_with_proof']);
         Route::get('/appointments', [AppointmentController::class, 'index']);
         Route::get('/appointments/{aptid}', [AppointmentController::class, 'show']);
         

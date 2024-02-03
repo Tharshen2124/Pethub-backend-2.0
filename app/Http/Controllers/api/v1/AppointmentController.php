@@ -19,7 +19,7 @@ class AppointmentController extends Controller
         if($user->permission_level === '1') {
             $value = $request->validated();
 
-            Appointment::create([
+            $appointment = Appointment::create([
                 'user_id' => $value['user_id'],
                 'pet_id' => $value['pet_id'],
                 'pet_service_provider_ref' => $value['pet_service_provider_ref'],
@@ -32,14 +32,47 @@ class AppointmentController extends Controller
             ]);
 
             return response()->json([
-                'message' => 'Successfully made an appointment!',
+                'message' => 'First half of appointment procedure done',
+                'appointment' => $appointment
             ], 201);
+
         } else {
             return response()->json([
                 'error' => 'Unauthorised request'
-            ]);
+            ], 403);
         }
         
+    }
+
+    public function update_with_proof(Request $request, string $id)
+    {
+        $appointment = Appointment::find($id);
+
+        if($appointment) {      
+            $request->validate([
+                'upload_payment_proof' => 'required | file'
+            ]);
+
+            if($request->hasFile('upload_payment_proof'))
+            {
+                $proof = $request->file('upload_payment_proof')->store('public/payment_proof');
+                $img = basename($proof);
+                $linkToImage = asset('storage/payment_proof/'.$img);
+            }
+
+            $appointment->update([
+                'upload_payment_proof' => $linkToImage
+            ]);
+
+            return response()->json([
+                'message' => "Successfully created an appointment!"
+            ]);
+
+        } else {
+            return response()->json([
+                'error' => "Appointment not found"
+            ], 404);
+        }
     }
 
     // Display all the appointments made by a user
@@ -47,7 +80,9 @@ class AppointmentController extends Controller
     {
         $user = auth('sanctum')->user();
         $appointments = $user->appointments()->with('serviceProvider')->get();
-        return $appointments;
+        return response()->json([
+          'appointments' => $appointments
+        ]);
     }
 
     // Display the specified appointments to a user.

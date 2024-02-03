@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class CertificateFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => User::factory(),
+            'certificate_upload' => "http://localhost/storage/certs/sssm_cert.pdf",
+            'certificate_service_type' => "healthcare"
         ];
     }
 }

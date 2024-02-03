@@ -46,20 +46,8 @@ class AppointmentController extends Controller
     public function index()
     {
         $user = auth('sanctum')->user();
-        
-        if($user->permission_level === "1") 
-        {
-            $appointments = $user->appointments()->get() ?? null;
-
-            return response()->json([
-                'appointment' => $appointments
-            ]);
-
-        } else {
-            return response()->json([
-                'error' => 'Unauthorised request',
-            ], 401);
-        }
+        $appointments = $user->appointments()->with('serviceProvider')->get();
+        return $appointments;
     }
 
     // Display the specified appointments to a user.

@@ -20,6 +20,12 @@ class Appointment extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function serviceProvider()
+    {
+        return $this->belongsTo(User::class, 'pet_service_provider_ref', 'user_id');
+    }
+
+
     public function pet()
     {
         return $this->belongsTo(Pet::class, 'pet_id');

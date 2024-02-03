@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('breed')->nullable();
             $table->text('description');
-            $table->integer('age');
+            $table->string('age');
             $table->string('image');
         });
     }

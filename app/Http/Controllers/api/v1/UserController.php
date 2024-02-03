@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Certificate;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -110,6 +111,8 @@ class UserController extends Controller
         Auth::login($user);
 
         $token = $request->user()->createToken('userToken')->plainTextToken;
+
+        Log::debug("mom");
 
         return response()->json([
             'message' => "Successfully registered",

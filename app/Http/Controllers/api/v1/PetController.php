@@ -19,7 +19,7 @@ class PetController extends Controller
             'type' => 'required', 
             'description' => 'required',
             'age' => 'required',
-            'image' => 'required | image',
+            'image' => 'required | file',
         ]);
 
         Pet::create([

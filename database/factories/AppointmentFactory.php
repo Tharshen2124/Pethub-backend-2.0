@@ -18,19 +18,25 @@ class AppointmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(),
-            'pet_service_provider_ref' => User::factory(),
+            'user_id' => function() {
+                return User::where('permission_level', 1)
+                    ->inRandomOrder()
+                    ->first()
+                    ->user_id;
+            },
+            'pet_service_provider_ref' => function() {
+                return User::where('permission_level', 2)
+                    ->inRandomOrder
+                    ->first()
+                    ->uesr_id;
+            },
             'appointment_type' => 'healthcare',
             'date' => fake()->date(),
             'time' => fake()->time(),
             'important_details' => fake()->text(),
             'issue_description' => fake()->text(),
             'appointment_status' => fake()->randomElement(['accepted', 'pending', 'rejected']),
-            'upload_payment_proof' => fake()->randomElement([
-                'accepted', 
-                'pending', 
-                'rejected'
-            ]),
+            'upload_payment_proof' => "http://localhost/storage/payment_proof/payment_proof.jpg",
         ];
     }
 }

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('password');
             $table->enum('permission_level', ['1', '2', '3']);
             $table->string('image');
-            $table->text('description');
-            $table->string('contact_number');
+            $table->text('description')->nullable();
+            $table->string('contact_number')->nullable();
             $table->float('deposit_range')->default(0);
             $table->string('service_type')->nullable();
             $table->time('opening_hour')->nullable();

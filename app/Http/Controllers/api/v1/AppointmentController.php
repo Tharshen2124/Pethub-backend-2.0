@@ -92,7 +92,7 @@ class AppointmentController extends Controller
         
         if($user->permission_level === "1") 
         {
-            $appointment = Appointment::with('user', 'pet')->find($aptId);
+            $appointment = Appointment::with('serviceProvider', 'pet')->find($aptId);
 
             if($appointment) {
                 return response()->json([

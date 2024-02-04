@@ -12,7 +12,7 @@ class Comment extends Model
     use HasFactory;
 
     protected $primaryKey = 'comment_id';
-
+    public $timestamps = false;
     protected $guarded = [];
 
     public function user()

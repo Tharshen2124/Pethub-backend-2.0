@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,16 @@ class NewsFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => function() {
+                return User::where('permission_level', 1)
+                    ->inRandomOrder()
+                    ->first()
+                    ->user_id;
+            },
+            'news_title' => fake()->title(),
+            'news_description' => fake()->text(),
+            'image' => fake()->imageUrl(640, 480, 'animals', true), 
+            'news_status' => fake()->randomElement(['approved', 'pending', 'rejected']),
         ];
     }
 }

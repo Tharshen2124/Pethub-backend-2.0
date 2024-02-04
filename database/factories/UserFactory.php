@@ -41,7 +41,7 @@ class UserFactory extends Factory
             return [
                 'full_name' => fake()->name(),
                 'email' => fake()->unique()->safeEmail(),
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'password' => bcrypt("12345"), // password
                 'permission_level' => "2",
                 'image' => fake()->randomElement([
                     'http://localhost/storage/profile/clinic_1.jpg', 

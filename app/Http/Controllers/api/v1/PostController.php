@@ -5,23 +5,21 @@ namespace App\Http\Controllers\api\v1;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorePostRequest;
-use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Resources\AllPostResource;
+use App\Http\Requests\UpdatePostRequest;
+use App\Http\Resources\AllPostCollection;
 
 class PostController extends Controller
 {
     // display all posts with the earliest comment
     public function index()
     {
-        $posts = Post::with(['comments' => function ($query) {
-            $query->orderBy('created_at', 'asc');
-        }, 'categories'])->get()->each(function ($post) {
-            $post->setRelation('comments', collect([$post->comments->first()]));
-        });   
-        
+        $posts = Post::with('categories', 'user')->orderBy('created_at', 'desc')->get();
+
         return response()->json([
-            'post' => PostResource::collection($posts)
+            "posts" => AllPostResource::collection($posts)
         ]);
     }
 
@@ -53,21 +51,10 @@ class PostController extends Controller
     // Show a post with all its comments
     public function show(string $id)
     {
-        /* $post = Post::with('comments', 'categories')->find($id) ?? null;
-
-        if($post) {
-            return response()->json([
-                'post' => new PostResource($post)
-            ], 201);
-        } else {
-            return response()->json([
-                'Error' => "Post not found"
-            ], 404);
-        }    */
-        $post = Post::with('comments')->find($id);
+        $post = Post::with('user', 'categories', 'comments.user')->find($id);
 
         return response()->json([
-           'post' => new PostResource($post) 
+           'post' => new PostResource($post)
         ]);
     }
 

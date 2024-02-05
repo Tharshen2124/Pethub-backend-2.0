@@ -6,6 +6,7 @@ use Exception;
 use App\Models\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\NewsResource;
 use App\Http\Requests\StoreNewsRequest;
 use App\Http\Requests\UpdateNewsRequest;
 
@@ -19,7 +20,7 @@ class NewsController extends Controller
             ->get();
 
         return response()->json([
-            'news' => $news
+            'news' => NewsResource::collection($news)
         ]);
     }
 
@@ -82,7 +83,7 @@ class NewsController extends Controller
         }
 
         return response()->json([
-            'news' => $news
+            'news' => new NewsResource($news)
         ]);
     }
 }

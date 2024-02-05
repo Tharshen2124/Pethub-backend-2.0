@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Models\Pet;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePetRequest;
@@ -14,11 +15,18 @@ class PetController extends Controller
     {
         $user_id = auth('sanctum')->user()->user_id;
 
-        $pets = Pet::where('user_id', $user_id)->get();
+        $pets = User::with('pets')->find($user_id);
 
-        return response()->json([
-            'pets' => $pets
-        ]);
+        if($pets) {
+            return response()->json([
+                'pets' => $pets
+            ]);
+        } else {
+            return response()->json([
+                'message' => "This user does not have any pets"
+            ]);
+        }
+        
     }
 
     // store a new pet 

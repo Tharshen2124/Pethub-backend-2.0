@@ -3,11 +3,11 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use App\Http\Resources\CommentResource;
+use App\Http\Resources\UserResource;
 use App\Http\Resources\CategoryResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PostResource extends JsonResource
+class AllPostResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,7 +23,6 @@ class PostResource extends JsonResource
 			"post_description" => $this->post_description,
 			"created_at" => $this->created_at,
 			"updated_at" => $this->updated_at,
-			"comments" => CommentResource::collection($this->comments),
 			"categories" => CategoryResource::collection($this->categories),
             "user" => new UserResource($this->user)
         ];

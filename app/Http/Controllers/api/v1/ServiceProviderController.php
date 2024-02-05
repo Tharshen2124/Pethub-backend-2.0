@@ -25,4 +25,18 @@ class ServiceProviderController extends Controller
             'boarders' => $boarders
         ]);
     }
+
+    public function moreInfo(string $spid) {
+        $sp = User::find($spid);
+
+        if($sp) {
+            return response()->json([
+                'service provider' => $sp
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Service provider not found',
+            ], 404);
+        }
+    }
 }

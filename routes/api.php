@@ -50,6 +50,7 @@ Route::group(['prefix' => 'v1'], function () {
         // service provider "healthcare" and "boarders" routes
         Route::get('/healthcare', [ServiceProviderController::class, 'get_healthcare_facilties']);
         Route::get('/boarder', [ServiceProviderController::class, 'get_boarders']);
+        Route::get('/healthcare/{spid}', [ServiceProviderController::class, 'moreInfo']);
         
         // user appointment routes
         Route::post('/appointments', [AppointmentController::class, 'store']);

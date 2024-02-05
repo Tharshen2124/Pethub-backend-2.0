@@ -31,7 +31,7 @@ class ServiceProviderController extends Controller
 
         if($sp) {
             return response()->json([
-                'service provider' => $sp
+                'service_provider' => $sp
             ]);
         } else {
             return response()->json([

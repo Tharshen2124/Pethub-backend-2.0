@@ -40,7 +40,7 @@ class UserController extends Controller
         {
             $profile = $request->file('image')->store('public/profile');
             $img = basename($profile);
-            $linkToImage = asset('storage/avatar/'.$img);
+            $linkToImage = asset('storage/profile/'.$img);
         }
 
         if($permission_level === 1) 
@@ -145,6 +145,49 @@ class UserController extends Controller
             ];
 
             return response($return, 404);
+        }
+    }
+
+    public function editPetOwner(Request $request, string $id)
+    {
+        $user = User::find($id);
+
+        if($user) {
+            $validated = $request->validate([
+                'full_name' => 'required',
+                'email' => 'required',
+                'password' => 'required',
+                'permission_level' => 'required',
+                'contact_number' => 'required',
+                'description' => 'required',
+                'image' => 'image',
+            ]);
+    
+            $password = Hash::make($validated['password']); // register for regular user
+            
+            if($request->hasFile('image'))
+            {
+                $profile = $request->file('image')->store('public/profile');
+                $img = basename($profile);
+                $linkToImage = asset('storage/profile/'.$img);
+            }
+    
+            $user->update([
+                'full_name' => $validated['full_name'],
+                'email' => $validated['email'],
+                'password' => $password,
+                'contact_number' => $validated['contact_number'],
+                'description' => $validated['description'],
+                'image' =>  $linkToImage,
+            ]);
+
+            return response()->json([
+                'message' => 'Succesfully edited user info!'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'User not found'
+            ]);
         }
     }
 

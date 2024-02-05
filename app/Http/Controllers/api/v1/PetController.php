@@ -81,8 +81,8 @@ class PetController extends Controller
             $pet->update([
                 'pet_name' => $validated['pet_name'],
                 'type' => $validated['type'], 
-                'breed' => $validated['breed'],
-                'description' => $validated['decscription'],
+                'breed' => $request->breed,
+                'description' => $validated['description'],
                 'age' => $validated['age'],
                 'image' => $validated['image'],
             ]);

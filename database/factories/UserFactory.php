@@ -92,11 +92,11 @@ class UserFactory extends Factory
                 'password' => bcrypt("12345"), // password
                 'permission_level' => "2",
                 'image' => fake()->randomElement([
-                    'http://localhost/storage/profile/clinic_1.jpg', 
+                    'http://localhost/storage/profile/clinic_1.png', 
                     'http://localhost/storage/profile/clinic_2.jpg', 
                     'http://localhost/storage/profile/clinic_3.jpg',
-                    'http://localhost/storage/profile/clinic_4.jpg', 
-                    'http://localhost/storage/profile/clinic_5.jpg', 
+                    'http://localhost/storage/profile/clinic_4.png', 
+                    'http://localhost/storage/profile/clinic_5.png', 
                 ]),
                 'deposit_range' => fake()->randomFloat(1, 10, 20),
                 'service_type' => "healthcare",

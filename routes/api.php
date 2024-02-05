@@ -37,6 +37,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['middleware' => ['auth:sanctum']], function () {
         
         // user logout route
+        Route::post('/petowner/edit/{id}', [UserController::class, 'editPetOwner']);
         Route::post('/logout', [UserController::class, 'logout']);
         
         // user / service provider profile route
@@ -44,8 +45,9 @@ Route::group(['prefix' => 'v1'], function () {
 
         // user pet routes
         Route::apiResource('/pets', PetController::class)->only([
-           'index', 'store', 'update', 'destroy'
+           'index', 'store', 'destroy'
         ]);
+        Route::post('/pets/{id}', [PetController::class, 'update']);
 
         // service provider "healthcare" and "boarders" routes
         Route::get('/healthcare', [ServiceProviderController::class, 'get_healthcare_facilties']);

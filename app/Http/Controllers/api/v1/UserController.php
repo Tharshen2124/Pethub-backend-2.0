@@ -53,7 +53,7 @@ class UserController extends Controller
                 'contact_number' => $validated['contact_number'],
                 'description' => $validated['description'],
                 'image' =>  $linkToImage,
-                'user_status' => 'accepted'
+                'user_status' => 'approved'
             ]);
         }
 

@@ -120,7 +120,10 @@ class AppointmentController extends Controller
         $user = User::find($spref);
 
         if($user->permission_level === '2') {
-            $appointments = Appointment::where('pet_service_provider_ref', $spref)->get() ?? null;
+            $appointments = Appointment::with('pet')
+                ->where('pet_service_provider_ref', $spref)
+                
+                ->get() ?? null;
 
             if($appointments) {
                 return response()->json([

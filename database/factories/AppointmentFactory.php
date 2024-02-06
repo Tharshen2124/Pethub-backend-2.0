@@ -28,14 +28,14 @@ class AppointmentFactory extends Factory
                 return User::where('permission_level', 2)
                     ->inRandomOrder
                     ->first()
-                    ->uesr_id;
+                    ->user_id;
             },
             'appointment_type' => 'healthcare',
             'date' => fake()->date(),
             'time' => fake()->time(),
             'important_details' => fake()->text(),
             'issue_description' => fake()->text(),
-            'appointment_status' => fake()->randomElement(['accepted', 'pending', 'rejected']),
+            'appointment_status' => fake()->randomElement(['approved', 'pending']),
             'upload_payment_proof' => "http://localhost/storage/payment_proof/payment_proof.jpg",
         ];
     }

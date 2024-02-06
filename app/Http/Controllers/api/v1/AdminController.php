@@ -111,7 +111,7 @@ class AdminController extends Controller
     // show all the users
     public function show_all_users()
     {
-        $user = User::all();
+        $user = User::where('user_status', 'approved')->get();
 
         return response()->json(['user' => $user]);
     }

@@ -122,7 +122,7 @@ class AppointmentController extends Controller
         if($user->permission_level === '2') {
             $appointments = Appointment::with('pet')
                 ->where('pet_service_provider_ref', $spref)
-                
+                ->where('appointment_status', 'pending')
                 ->get() ?? null;
 
             if($appointments) {
@@ -142,12 +142,11 @@ class AppointmentController extends Controller
     }
 
     // Display the specified appointments made to a specified service provider
-    public function sp_show(string $spref, string $aptId)
-    {
-        $user = User::find($spref);
-
+    public function sp_show(string $userId, string $aptId)
+    {   
+        $user = auth('sanctum')->user();
         if($user->permission_level === '2') {
-            $appointment = Appointment::with('user')->find($aptId);
+            $appointment = Appointment::with('user', 'pet')->find($aptId);
 
             if($appointment) {
                 return response()->json([
@@ -161,7 +160,7 @@ class AppointmentController extends Controller
         } else {
             return response()->json([
                 'error' => 'Unauthorised request'
-            ], 401); 
+            ], 403); 
         }
     }
     

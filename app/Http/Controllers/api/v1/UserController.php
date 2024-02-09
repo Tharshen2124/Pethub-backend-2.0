@@ -59,6 +59,7 @@ class UserController extends Controller
 
         elseif($permission_level === 2) // register for service provider
         {
+            return "hello fuckface";
             $SP_validated = $request->validate([
                 'image' => 'required | image',
                 'deposit_range' => 'required',
@@ -146,6 +147,83 @@ class UserController extends Controller
 
             return response($return, 404);
         }
+    }
+
+    public function registerServiceProvider(Request $request)
+    {
+        $validated = $request->validate([
+            'full_name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'permission_level' => 'required',
+            'contact_number' => 'required',
+            'description' => 'required',
+            'image' => 'required | image',
+            'deposit_range' => 'required',
+            'service_type' => 'required', Rule::in(['boarder', 'healthcare']),  
+            'opening_hour' => 'required',
+            'closing_hour' => 'required',
+            'bank_name' => 'required',
+            'beneficiary_acc_number' => 'required',
+            'beneficiary_name' => 'required',
+            'qr_code_image' => 'required | image',
+            'sssm_certificate' => 'required | file',
+        ]);
+
+        $password = Hash::make($validated['password']); // register for regular user
+        
+        if($request->hasFile('image'))
+        {
+            $profile = $request->file('image')->store('public/profile');
+            $img = basename($profile);
+            $linkToImage = asset('storage/profile/'.$img);
+        }
+
+        if($request->hasFile('sssm_certificate') && $request->hasFile('qr_code_image'))
+        {
+            $qr_code_image = $request->file('qr_code_image')->store('public/qr_code');
+            $img2 = basename($qr_code_image);
+            $linkToQR = asset('storage/qr_code/'.$img2);
+            
+            $sssm_certificate = $request->file('sssm_certificate')->store('public/certs');
+            $img3 = basename($sssm_certificate);
+            $linkToCert = asset('storage/certs/'.$img3);
+        }
+
+        $user = User::create([
+            'full_name' => $validated['full_name'],
+            'email' => $validated['email'],
+            'password' => $password,
+            'permission_level' => $validated['permission_level'],
+            'image' => $linkToImage,
+            'contact_number' => $validated['contact_number'],
+            'description' => $validated['description'],
+            'deposit_range' => $validated['deposit_range'],
+            'service_type' => $validated['service_type'],
+            'opening_hour' => $validated['opening_hour'],
+            'closing_hour' => $validated['closing_hour'],
+            'bank_name' => $validated['bank_name'],
+            'beneficiary_acc_number' => $validated['beneficiary_acc_number'],
+            'beneficiary_name' => $validated['beneficiary_name'],
+            'qr_code_image' => $linkToQR,
+            'user_status' => 'pending'
+        ]);
+
+        Certificate::create([
+            'user_id' => $user->user_id,
+            'certificate_upload' => $linkToCert,
+            'certificate_service_type' => $validated['service_type']
+        ]);
+        
+        Auth::login($user);
+
+        $token = $request->user()->createToken('userToken')->plainTextToken;
+
+        return response()->json([
+            'message' => "Successfully registered",
+            'token' => $token,
+            'user' => $user,
+        ], 201);
     }
 
     public function editPetOwner(Request $request, string $id)

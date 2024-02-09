@@ -32,6 +32,8 @@ Route::group(['prefix' => 'v1'], function () {
 
     // User registration routes
     Route::post('/register', [UserController::class, 'register'])->middleware('guest');
+    Route::post('/register-service-provider', [UserController::class, 'registerServiceProvider'])->middleware('guest');
+    
     Route::post('/login', [UserController::class, 'login'])->middleware('guest');
     
     Route::group(['middleware' => ['auth:sanctum']], function () {

@@ -163,6 +163,20 @@ class AppointmentController extends Controller
             ], 403); 
         }
     }
+
+    public function sp_show_user_profile(string $id)
+    {        
+        $user = User::with('pets')->find($id);
+        if($user) {
+            return response()->json([
+                'pet_owner' => $user
+            ]);
+        } else {
+            return response()->json([
+                'message' => "No pet owner found"
+            ], 404);
+        }
+    }
     
     // Update the specified resource in storage.
     public function update(Request $request,string $spref, string $aptId)

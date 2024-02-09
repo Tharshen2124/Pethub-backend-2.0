@@ -63,6 +63,7 @@ Route::group(['prefix' => 'v1'], function () {
         // service provider appointment routes
         Route::get('/service-provider/appointments/{spref}', [AppointmentController::class, 'sp_index']);
         Route::get('/service-provider/appointments/{spref}/{aptId}', [AppointmentController::class, 'sp_show']);
+        Route::get('service-provider/user-profile/{id}', [AppointmentController::class, 'sp_show_user_profile']);
         Route::post('/service-provider/appointments/{spref}/{aptId}', [AppointmentController::class, 'update']);
         
         // user/service provider News routes

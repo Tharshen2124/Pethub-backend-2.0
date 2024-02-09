@@ -38,6 +38,7 @@ Route::group(['prefix' => 'v1'], function () {
         
         // user logout route
         Route::post('/petowner/edit/{id}', [UserController::class, 'editPetOwner']);
+        Route::post('service-provider/edit/{id}' ,[UserController::class,'editServiceProvider']);
         Route::post('/logout', [UserController::class, 'logout']);
         
         // user / service provider profile route

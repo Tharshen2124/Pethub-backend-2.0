@@ -151,7 +151,7 @@ class UserController extends Controller
     public function editPetOwner(Request $request, string $id)
     {
         $user = User::find($id);
-
+        
         if($user) {
             $validated = $request->validate([
                 'full_name' => 'required',
@@ -179,6 +179,71 @@ class UserController extends Controller
                 'contact_number' => $validated['contact_number'],
                 'description' => $validated['description'],
                 'image' =>  $linkToImage,
+            ]);
+
+            return response()->json([
+                'message' => 'Succesfully edited user info!'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'User not found'
+            ]);
+        }
+    }
+
+    public function editServiceProvider(Request $request, string $id)
+    {
+        $user = User::find($id);
+        
+        if($user) {
+            $validated = $request->validate([
+                'full_name' => 'required',
+                'email' => 'required',
+                'password' => 'required',
+                'contact_number' => 'required',
+                'description' => 'required',
+                'image' => 'required | image',
+                'deposit_range' => 'required',
+                'service_type' => 'required', Rule::in(['boarder', 'healthcare']),  
+                'opening_hour' => 'required',
+                'closing_hour' => 'required',
+                'bank_name' => 'required',
+                'beneficiary_acc_number' => 'required',
+                'beneficiary_name' => 'required',
+                'qr_code_image' => 'required | image',
+            ]);
+    
+            $password = Hash::make($validated['password']); // register for regular user
+            
+            if($request->hasFile('image'))
+            {
+                $profile = $request->file('image')->store('public/profile');
+                $img = basename($profile);
+                $linkToImage = asset('storage/profile/'.$img);
+            }
+
+            if($request->hasFile('qr_code_image')) 
+            {
+                $qr_code_image = $request->file('qr_code_image')->store('public/qr_code');
+                $img2 = basename($qr_code_image);
+                $linkToQR = asset('storage/qr_code/'.$img2);
+            }
+    
+            $user->update([
+                'full_name' => $validated['full_name'],
+                'email' => $validated['email'],
+                'password' => $password,
+                'image' => $linkToImage,
+                'contact_number' => $validated['contact_number'],
+                'description' => $validated['description'],
+                'deposit_range' => $validated['deposit_range'],
+                'service_type' => $validated['service_type'],
+                'opening_hour' => $validated['opening_hour'],
+                'closing_hour' => $validated['closing_hour'],
+                'bank_name' => $validated['bank_name'],
+                'beneficiary_acc_number' => $validated['beneficiary_acc_number'],
+                'beneficiary_name' => $validated['beneficiary_name'],
+                'qr_code_image' => $linkToQR,
             ]);
 
             return response()->json([

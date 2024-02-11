@@ -5,10 +5,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
-    - name: Install Dependencies
-      run: composer install
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3.2'
+        extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+        coverage: none
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest --ignore-platform-reqs
 
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
@@ -20,9 +27,11 @@ jobs:
         echo DB_DATABASE=laravel >> .env
         echo DB_USERNAME=root >> .env
         echo DB_PASSWORD=password >> .env
-
-    - name: Build and run Docker Compose
-      run: ./vendor/bin/sail up -d
+        
+    - name: Start Laravel Sail
+      run: |
+        ./vendor/bin/sail up -d
+        ./vendor/bin/sail artisan migrate
 
     - name: Run tests
       run: ./vendor/bin/sail test

@@ -22,10 +22,11 @@ jobs:
 
     - name: Set Environment Variables
       run: |
-        echo DB_HOST=127.0.0.1 >> .env
+        echo DB_CONNECTION=mysql
+        echo DB_HOST=mysql >> .env
         echo DB_PORT=3306 >> .env
-        echo DB_DATABASE=laravel >> .env
-        echo DB_USERNAME=root >> .env
+        echo DB_DATABASE=pethub_backend_2 >> .env
+        echo DB_USERNAME=sail >> .env
         echo DB_PASSWORD=password >> .env
         
     - name: Start Laravel Sail

@@ -19,8 +19,8 @@ jobs:
 
     - name: Start Laravel Sail
       run: |
-        vendor/bin/sail up -d
-        vendor/bin/sail artisan migrate
+        ./vendor/bin/sail up -d
+        ./vendor/bin/sail artisan migrate
 
     - name: Run tests
-      run: vendor/bin/sail test
+      run: ./vendor/bin/sail test

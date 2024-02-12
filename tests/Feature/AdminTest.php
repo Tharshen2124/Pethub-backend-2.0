@@ -21,7 +21,7 @@ class AdminTest extends TestCase
     {
         User::factory(3)->create();
 
-        $user = User::create([
+        $admin = User::create([
             'full_name' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => '12345',
@@ -32,7 +32,7 @@ class AdminTest extends TestCase
             'user_status' => 'approved'
         ]);
 
-        $token = $user->createToken('test-token')->plainTextToken;
+        $token = $admin->createToken('test-token')->plainTextToken;
         
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
@@ -112,7 +112,7 @@ class AdminTest extends TestCase
                 
             ]
         ];
-
+        
         $response->assertJsonStructure($user);
     }
 }

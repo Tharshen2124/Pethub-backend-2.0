@@ -30,4 +30,22 @@ class NewsFactory extends Factory
             'news_status' => fake()->randomElement(['approved', 'pending', 'rejected']),
         ];
     }
+
+    public function approvedNews(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'user_id' => function() {
+                    return User::where('permission_level', 1)
+                        ->inRandomOrder()
+                        ->first()
+                        ->user_id;
+                },
+                'news_title' => fake()->title(),
+                'news_description' => fake()->text(),
+                'image' => fake()->imageUrl(640, 480, 'animals', true), 
+                'news_status' => "approved",
+            ];
+        });
+    }
 }

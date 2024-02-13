@@ -23,7 +23,7 @@ class AppointmentController extends Controller
                 'user_id' => $value['user_id'],
                 'pet_id' => $value['pet_id'],
                 'pet_service_provider_ref' => $value['pet_service_provider_ref'],
-                'appointment_type' => $value['appointment_type'],
+                'appointment_type' => $value['appointment_type'], // healthcare, grooming
                 'date' => $value['date'],
                 'time' => $value['time'],
                 'important_details' => $value['important_details'],

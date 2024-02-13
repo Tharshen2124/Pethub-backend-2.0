@@ -35,7 +35,7 @@ class UserFactory extends Factory
         ];
     }
     
-    public function serviceProvider(): Factory
+    public function healthcare_facilities(): Factory
     {
         return $this->state(function (array $attributes) {
             return [
@@ -52,6 +52,40 @@ class UserFactory extends Factory
                 ]),
                 'deposit_range' => fake()->randomFloat(1, 10, 20),
                 'service_type' => "healthcare",
+                'description' => fake()->paragraph(),
+                'contact_number' => fake()->numerify('+60-0##-#######'),
+                'opening_hour' => fake()->time(),
+                'closing_hour' => fake()->time(),
+                'bank_name' => fake()->randomElement(['Maybank', 'CIMB', 'DuitNow']),
+                'beneficiary_acc_number' => fake()->numberBetween(10000000, 100000000),
+                'beneficiary_name' => fake()->name(),
+                'qr_code_image' => fake()->randomElement([
+                    'http://localhost/storage/qr_code/qr_image_1.jpg', 
+                    'http://localhost/storage/qr_code/qr_image_2.jpg', 
+                    'http://localhost/storage/qr_code/qr_image_3.jpg', 
+                ]),
+                'user_status' => 'approved'
+            ];
+        });
+    }
+
+    public function grooming_facilities(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'full_name' => fake()->name(),
+                'email' => fake()->unique()->safeEmail(),
+                'password' => bcrypt("12345"), // password
+                'permission_level' => "2",
+                'image' => fake()->randomElement([
+                    'http://localhost/storage/profile/clinic_1.jpg', 
+                    'http://localhost/storage/profile/clinic_2.jpg', 
+                    'http://localhost/storage/profile/clinic_3.jpg',
+                    'http://localhost/storage/profile/clinic_4.jpg', 
+                    'http://localhost/storage/profile/clinic_5.jpg', 
+                ]),
+                'deposit_range' => fake()->randomFloat(1, 10, 20),
+                'service_type' => "grooming",
                 'description' => fake()->paragraph(),
                 'contact_number' => fake()->numerify('+60-0##-#######'),
                 'opening_hour' => fake()->time(),
@@ -99,7 +133,7 @@ class UserFactory extends Factory
                     'http://localhost/storage/profile/clinic_5.png', 
                 ]),
                 'deposit_range' => fake()->randomFloat(1, 10, 20),
-                'service_type' => "healthcare",
+                'service_type' => fake()->randomElement(["healthcare", "grooming"]),
                 'description' => fake()->paragraph(),
                 'contact_number' => fake()->numerify('+60-0##-#######'),
                 'opening_hour' => fake()->time(),

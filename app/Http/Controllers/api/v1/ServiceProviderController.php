@@ -17,12 +17,12 @@ class ServiceProviderController extends Controller
         ]);
     }
 
-    public function get_boarders()
+    public function get_grooming_facilities()
     {
-        $boarders = User::where('service_type', 'boarder')->get();
+        $grooming = User::where('service_type', 'grooming')->get();
         
         return response()->json([
-            'boarders' => $boarders
+            'grooming' => $grooming
         ]);
     }
 

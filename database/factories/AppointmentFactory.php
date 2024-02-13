@@ -39,4 +39,30 @@ class AppointmentFactory extends Factory
             'upload_payment_proof' => "http://localhost/storage/payment_proof/payment_proof.jpg",
         ];
     }
+
+    public function grooming_facilities(): Factory
+    {
+        return [
+            'user_id' => function() {
+                return User::where('permission_level', 1)
+                    ->inRandomOrder()
+                    ->first()
+                    ->user_id;
+            },
+            'pet_service_provider_ref' => function() {
+                return User::where('permission_level', 2)
+                    ->where('service_type', 'grooming')
+                    ->inRandomOrder
+                    ->first()
+                    ->user_id;
+            },
+            'appointment_type' => 'grooming',
+            'date' => fake()->date(),
+            'time' => fake()->time(),
+            'important_details' => fake()->text(),
+            'issue_description' => fake()->text(),
+            'appointment_status' => fake()->randomElement(['approved', 'pending']),
+            'upload_payment_proof' => "http://localhost/storage/payment_proof/payment_proof.jpg",
+        ];
+    }
 }

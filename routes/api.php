@@ -52,9 +52,9 @@ Route::group(['prefix' => 'v1'], function () {
         ]);
         Route::post('/pets/{id}', [PetController::class, 'update']);
 
-        // service provider "healthcare" and "boarders" routes
+        // service provider "healthcare" and "grooming" routes
         Route::get('/healthcare', [ServiceProviderController::class, 'get_healthcare_facilties']);
-        Route::get('/boarder', [ServiceProviderController::class, 'get_boarders']);
+        Route::get('/grooming', [ServiceProviderController::class, 'get_grooming_facilities']);
         Route::get('/healthcare/{spid}', [ServiceProviderController::class, 'moreInfo']);
         
         // user appointment routes

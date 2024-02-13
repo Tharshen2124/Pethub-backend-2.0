@@ -18,9 +18,9 @@ class CertificateFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(),
+            'user_id' => null,
             'certificate_upload' => "http://localhost/storage/certs/sssm_cert.pdf",
-            'certificate_service_type' => "healthcare"
+            'certificate_service_type' => null
         ];
     }
 }

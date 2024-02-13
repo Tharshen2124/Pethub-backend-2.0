@@ -159,10 +159,18 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         // Creates service providers with pending acc
-        User::factory()
+        $pending_sp_ids = User::factory()
             ->serviceProviderIsPending()
             ->count(3)
-            ->create();
+            ->create()
+            ->pluck('user_id');
+
+        foreach($pending_sp_ids as $pending_sp_id) {
+            Certificate::factory()->create([
+                'user_id' => $pending_sp_id,
+                'certificate_service_type' => "grooming"
+            ]);
+        }
 
         Report::factory()
             ->count(10)

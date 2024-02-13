@@ -16,7 +16,9 @@ class PostController extends Controller
     // display all posts with the earliest comment
     public function index()
     {
-        $posts = Post::with('categories', 'user')->orderBy('created_at', 'desc')->get();
+        $posts = Post::with('categories', 'user')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return response()->json([
             "posts" => AllPostResource::collection($posts)

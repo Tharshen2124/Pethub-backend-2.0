@@ -26,7 +26,13 @@ class NewsFactory extends Factory
             },
             'news_title' => fake()->title(),
             'news_description' => fake()->text(),
-            'image' => fake()->imageUrl(640, 480, 'animals', true), 
+            'image' => fake()->randomElement([
+                'http://localhost/storage/news_image/news_1.jpg',
+                'http://localhost/storage/news_image/news_2.jpg',
+                'http://localhost/storage/news_image/news_3.jpg',
+                'http://localhost/storage/news_image/news_4.jpg',
+                'http://localhost/storage/news_image/news_5.jpg'
+            ]), 
             'news_status' => fake()->randomElement(['approved', 'pending', 'rejected']),
         ];
     }

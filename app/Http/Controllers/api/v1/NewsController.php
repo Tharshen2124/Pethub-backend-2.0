@@ -17,6 +17,7 @@ class NewsController extends Controller
     {
         $news = News::with('user', 'categories')
             ->where('news_status', 'approved')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return response()->json([
@@ -37,9 +38,9 @@ class NewsController extends Controller
         try {     
             if($request->hasFile('image'))
             {
-                $image = $request->file('image')->store('public');
-                [$public, $img] = explode("/",$image);
-                $linkToImage = asset('storage/'.$img);
+                $image = $request->file('image')->store('public/news_image');
+                $img = basename($image);
+                $linkToImage = asset('storage/payment_proof/'.$img);
             }
             
             $news = News::create([

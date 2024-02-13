@@ -29,7 +29,13 @@ class PetFactory extends Factory
             'breed' => fake()->randomElement(['doberman', 'siberian husky', 'white shortbread', 'none', 'black type']), 
             'description'=> fake()->text(),
             'age' => fake()->numberBetween(1, 10),
-            'image' => fake()->imageUrl(640, 480, 'animals', true)
+            'image' => fake()->randomElement([
+                'http://localhost/storage/pet_profile/pet_1.jpg',
+                'http://localhost/storage/pet_profile/pet_2.jpg',
+                'http://localhost/storage/pet_profile/pet_3.jpg',
+                'http://localhost/storage/pet_profile/pet_4.jpg',
+                'http://localhost/storage/pet_profile/pet_5.jpg'
+            ])
         ];
     }
 }

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('image');
             $table->text('description')->nullable();
             $table->string('contact_number')->nullable();
-            $table->float('deposit_range')->default(0);
+            $table->float('deposit_value')->default(0);
             $table->string('service_type')->nullable();
             $table->time('opening_hour')->nullable();
             $table->time('closing_hour')->nullable();

@@ -36,6 +36,11 @@ Route::group(['prefix' => 'v1'], function () {
     
     Route::post('/login', [UserController::class, 'login'])->middleware('guest');
     
+    Route::get('/healthcare', [ServiceProviderController::class, 'get_healthcare_facilties'])->middleware('guest');
+    Route::get('/grooming', [ServiceProviderController::class, 'get_grooming_facilities'])->middleware('guest');
+    Route::get('/news', [NewsController::class, 'index'])->middleware('guest');
+    Route::get('/posts', [PostController::class, 'index'])->middleware('guest');
+    
     Route::group(['middleware' => ['auth:sanctum']], function () {
         
         // user logout route
@@ -53,9 +58,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/pets/{id}', [PetController::class, 'update']);
 
         // service provider "healthcare" and "grooming" routes
-        Route::get('/healthcare', [ServiceProviderController::class, 'get_healthcare_facilties']);
-        Route::get('/grooming', [ServiceProviderController::class, 'get_grooming_facilities']);
-        Route::get('/healthcare/{spid}', [ServiceProviderController::class, 'moreInfo']);
+        Route::get('/service-provider/{spid}', [ServiceProviderController::class, 'moreInfo']);
         
         // user appointment routes
         Route::post('/appointments', [AppointmentController::class, 'store']);
@@ -71,15 +74,23 @@ Route::group(['prefix' => 'v1'], function () {
         
         // user/service provider News routes
         Route::apiResource('/news', NewsController::class)->only([
-            'index', 'show', 'store'
+            'show', 
+            'store'
         ]);
 
         // user/service provider post routes
-        Route::apiResource('/posts', PostController::class);
+        Route::apiResource('/posts', PostController::class)->only([
+            'store',
+            'show',
+            'update',
+            'destroy'
+        ]);
 
         // user/service provider comment routes
         Route::apiResource('/comments', CommentController::class)->only([
-            'store', 'update', 'destroy'
+            'store', 
+            'update', 
+            'destroy'
         ]);
 
         // show all categories for forms route

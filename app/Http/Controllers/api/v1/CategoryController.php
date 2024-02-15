@@ -15,7 +15,7 @@ class CategoryController extends Controller
    public function index_post() 
    {
        $category = Category::where('is_deleted', 0)
-       ->where('category_type', 'post')
+       ->where('category_type', 'posts')
        ->get();
        
        return response()->json([

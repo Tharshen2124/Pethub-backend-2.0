@@ -77,6 +77,13 @@ class PetController extends Controller
                 'age' => 'required',
                 'image' => 'required | image',
             ]);
+
+            if($request->hasFile('image'))
+            {
+                $pet_profile = $request->file('image')->store('public/pet_profile');
+                $img = basename($pet_profile);
+                $linkToImage = asset('storage/pet_profile/'.$img);
+            }
     
             $pet->update([
                 'pet_name' => $validated['pet_name'],
@@ -84,7 +91,7 @@ class PetController extends Controller
                 'breed' => $request->breed,
                 'description' => $validated['description'],
                 'age' => $validated['age'],
-                'image' => $validated['image'],
+                'image' => $linkToImage,
             ]);
     
             return response()->json([

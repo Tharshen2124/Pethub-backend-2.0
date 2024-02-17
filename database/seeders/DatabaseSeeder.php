@@ -21,10 +21,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $userIds = User::factory()
+        $users = User::factory()
             ->count(10)
-            ->create()
-            ->pluck('user_id');
+            ->create();
+
+        $userIds = $users->pluck('user_id');    
 
         $healthcare_facilitiesIds = User::factory()
             ->healthcare_facilities()
@@ -117,11 +118,11 @@ class DatabaseSeeder extends Seeder
         }
 
         // Create news, posts, comments for each user
-        foreach ($userIds as $userId) {
+        foreach ($users as $user) {
             // Create 5 news for each user and attach categories
             $news = News::factory()
                 ->count(5)
-                ->create(['user_id' => $userId]);
+                ->create(['user_id' => $user->user_id]);
 
             $news->each(function ($news) {
                 $news->categories()->attach(
@@ -135,9 +136,9 @@ class DatabaseSeeder extends Seeder
             // Create 5 posts for each user and attach categories
             $posts = Post::factory()
                 ->count(5)
-                ->create(['user_id' => $userId]);
+                ->create(['user_id' => $user->user_id]);
             
-            $posts->each(function ($post) {
+            $posts->each(function ($post) use($user, $userIds) {
                 $post->categories()->attach(
                     Category::where('category_type', 'posts')
                         ->inRandomOrder()
@@ -148,7 +149,10 @@ class DatabaseSeeder extends Seeder
                 // Create 5 comments for each post
                 Comment::factory()
                     ->count(5)
-                    ->create(['user_id' => $post->user_id, 'post_id' => $post->post_id]);
+                    ->create([
+                        'user_id' => $userIds->diff([$user->user_id])->random(), 
+                        'post_id' => $post->post_id
+                    ]);
             });
         }
 

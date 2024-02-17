@@ -40,6 +40,10 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/grooming', [ServiceProviderController::class, 'get_grooming_facilities'])->middleware('guest');
     Route::get('/news', [NewsController::class, 'index'])->middleware('guest');
     Route::get('/posts', [PostController::class, 'index'])->middleware('guest');
+
+    // show all categories for forms route
+    Route::get('/categories/post', [CategoryController::class, 'index_post']);
+    Route::get('/categories/news', [CategoryController::class, 'index_news']);
     
     Route::group(['middleware' => ['auth:sanctum']], function () {
         
@@ -93,9 +97,7 @@ Route::group(['prefix' => 'v1'], function () {
             'destroy'
         ]);
 
-        // show all categories for forms route
-        Route::get('/categories/post', [CategoryController::class, 'index_post']);
-        Route::get('/categories/news', [CategoryController::class, 'index_news']);
+       
 
         // user/service provider make report routes
         Route::post('/report', [ReportController::class, 'store']);

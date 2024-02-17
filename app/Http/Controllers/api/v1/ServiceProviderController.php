@@ -10,7 +10,9 @@ class ServiceProviderController extends Controller
 {
     public function get_healthcare_facilties() 
     {
-        $healthcare_facilities = User::where('service_type', 'healthcare')->get();
+        $healthcare_facilities = User::where('service_type', 'healthcare')
+            ->where('user_status', 'approved')
+            ->get();
         
         return response()->json([
             'healthcare_facilities' => $healthcare_facilities
@@ -19,7 +21,9 @@ class ServiceProviderController extends Controller
 
     public function get_grooming_facilities()
     {
-        $grooming = User::where('service_type', 'grooming')->get();
+        $grooming = User::where('service_type', 'grooming')
+            ->where('user_status', 'approved')
+            ->get();
         
         return response()->json([
             'grooming' => $grooming

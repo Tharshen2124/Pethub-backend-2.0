@@ -24,7 +24,14 @@ class NewsFactory extends Factory
                     ->first()
                     ->user_id;
             },
-            'news_title' => fake()->title(),
+            'news_title' => fake()->randomElement([
+                'My dog went missing',
+                'New Promotion at PET day',
+                'Dog day is back!',
+                'My cat went missing',
+                'Save these cute boys and girls!',
+                'Help adopt these cute fellas',
+            ]),
             'news_description' => fake()->text(),
             'image' => fake()->randomElement([
                 'http://localhost/storage/news_image/news_1.jpg',

@@ -1,7 +1,7 @@
 <body>
     Dear user,
     <br>
-    We regret to inform you that your application for {{ $user->name }} to become a pet service provider for pethub has been rejected.
+    We regret to inform you that your application for {{ $user->name }} to become a pet service provider on pethub has been rejected.
     Some reasons for why your application was not accepted could be because:
     <br>
     - SSSM Certificate is fake or a wrong file was uploaded for this field

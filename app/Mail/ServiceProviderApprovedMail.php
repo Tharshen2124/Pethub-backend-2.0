@@ -29,7 +29,7 @@ class ServiceProviderApprovedMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Application for Male Stripper',
+            subject: 'Application Result to be a Pet Service Provider',
         );
     }
 

@@ -27,7 +27,7 @@ class ServiceProviderRejectedMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Service Provider Rejected Mail',
+            subject: 'Application Result to be a Pet Service Provider',
         );
     }
 

@@ -191,7 +191,7 @@ class AppointmentController extends Controller
                 ]);
     
                 $appointment->update([
-                    'status' => $validated['status']
+                    'appointment_status' => $validated['status']
                 ]);
     
                 return response()->json([

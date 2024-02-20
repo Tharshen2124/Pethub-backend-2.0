@@ -163,6 +163,7 @@ class UserController extends Controller
             'service_type' => 'required', Rule::in(['grooming', 'healthcare']),  
             'opening_hour' => 'required',
             'closing_hour' => 'required',
+            'facility_location' => 'required',
             'bank_name' => 'required',
             'beneficiary_acc_number' => 'required',
             'beneficiary_name' => 'required',
@@ -202,6 +203,7 @@ class UserController extends Controller
             'service_type' => $validated['service_type'],
             'opening_hour' => $validated['opening_hour'],
             'closing_hour' => $validated['closing_hour'],
+            'facility_location' => $validated['facility_location'],
             'bank_name' => $validated['bank_name'],
             'beneficiary_acc_number' => $validated['beneficiary_acc_number'],
             'beneficiary_name' => $validated['beneficiary_name'],
@@ -288,6 +290,7 @@ class UserController extends Controller
                 'bank_name' => 'required',
                 'beneficiary_acc_number' => 'required',
                 'beneficiary_name' => 'required',
+                'facility_location' => 'required',
                 'qr_code_image' => 'required | image',
             ]);
     
@@ -319,6 +322,7 @@ class UserController extends Controller
                 'opening_hour' => $validated['opening_hour'],
                 'closing_hour' => $validated['closing_hour'],
                 'bank_name' => $validated['bank_name'],
+                'facility_location' => $validated['facility_location'],
                 'beneficiary_acc_number' => $validated['beneficiary_acc_number'],
                 'beneficiary_name' => $validated['beneficiary_name'],
                 'qr_code_image' => $linkToQR,

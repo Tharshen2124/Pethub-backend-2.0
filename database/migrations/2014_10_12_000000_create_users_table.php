@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('contact_number')->nullable();
             $table->float('deposit_value')->default(0);
             $table->string('service_type')->nullable();
+            $table->text('facility_location')->nullable();
             $table->time('opening_hour')->nullable();
             $table->time('closing_hour')->nullable();
             $table->string('bank_name')->nullable();

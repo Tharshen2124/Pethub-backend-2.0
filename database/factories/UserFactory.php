@@ -68,10 +68,11 @@ class UserFactory extends Factory
                 ]),
                 'bank_name' => fake()->randomElement(['Maybank', 'CIMB', 'DuitNow']),
                 'beneficiary_acc_number' => fake()->numberBetween(10000000, 100000000),
+                'facility_location' => fake()->address(),
                 'beneficiary_name' => fake()->name(),
                 'qr_code_image' => fake()->randomElement([
-                    'http://localhost/storage/qr_code/qr_image_1.jpg', 
-                    'http://localhost/storage/qr_code/qr_image_2.jpg', 
+                    'http://localhost/storage/qr_code/qr_image_1.png', 
+                    'http://localhost/storage/qr_code/qr_image_2.png', 
                     'http://localhost/storage/qr_code/qr_image_3.jpg', 
                 ]),
                 'user_status' => 'approved'
@@ -112,6 +113,7 @@ class UserFactory extends Factory
                 ]),
                 'bank_name' => fake()->randomElement(['Maybank', 'CIMB', 'DuitNow']),
                 'beneficiary_acc_number' => fake()->numberBetween(10000000, 100000000),
+                'facility_location' => fake()->address(),
                 'beneficiary_name' => fake()->name(),
                 'qr_code_image' => fake()->randomElement([
                     'http://localhost/storage/qr_code/qr_image_1.png', 
@@ -160,6 +162,7 @@ class UserFactory extends Factory
                 'closing_hour' => fake()->time(),
                 'bank_name' => fake()->randomElement(['Maybank', 'CIMB', 'DuitNow']),
                 'beneficiary_acc_number' => fake()->numberBetween(10000000, 100000000),
+                'facility_location' => fake()->address(),
                 'beneficiary_name' => fake()->name(),
                 'qr_code_image' => fake()->randomElement([
                     'http://localhost/storage/qr_code/qr_image_1.jpg', 

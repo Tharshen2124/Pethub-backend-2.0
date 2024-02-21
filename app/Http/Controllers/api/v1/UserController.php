@@ -129,15 +129,22 @@ class UserController extends Controller
         $request->validated();
 
         $auth = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
-
+        $user_status = $request->user()->user_status;
         if($auth) 
         {
-            $token = $request->user()->createToken('userToken')->plainTextToken;
-            return response()->json([
-                'message' => 'Success!',
-                'token' => $token,
-                'user' => $request->user()
-            ], 200);
+            if($user_status === 'rejected') {
+                return response()->json([
+                    'error' => "Unauthorised request"
+                ], 403);
+            } else {
+                $token = $request->user()->createToken('userToken')->plainTextToken;
+                return response()->json([
+                    'message' => 'Success!',
+                    'token' => $token,
+                    'user' => $request->user()
+                ], 200);
+            }
+            
         } else {
             $return =  [
                 'message' => 'Error',

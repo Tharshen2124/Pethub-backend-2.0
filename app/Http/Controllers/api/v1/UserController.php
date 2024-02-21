@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\LoginUserRequest;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -20,7 +21,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'full_name' => 'required',
             'email' => 'required',
-            'password' => 'required',
+            'password' => ['required', Password::defaults()],
             'permission_level' => 'required',
             'contact_number' => 'required',
             'description' => 'required',
@@ -154,7 +155,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'full_name' => 'required',
             'email' => 'required',
-            'password' => 'required',
+            'password' => ['required', Password::defaults()],
             'permission_level' => 'required',
             'contact_number' => 'required',
             'description' => 'required',
@@ -236,7 +237,7 @@ class UserController extends Controller
             $validated = $request->validate([
                 'full_name' => 'required',
                 'email' => 'required',
-                'password' => 'required',
+                'password' => ['required', Password::defaults()],
                 'permission_level' => 'required',
                 'contact_number' => 'required',
                 'description' => 'required',
@@ -279,7 +280,7 @@ class UserController extends Controller
             $validated = $request->validate([
                 'full_name' => 'required',
                 'email' => 'required',
-                'password' => 'required',
+                'password' => ['required', Password::defaults()],
                 'contact_number' => 'required',
                 'description' => 'required',
                 'image' => 'required | image',

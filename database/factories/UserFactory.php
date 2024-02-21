@@ -25,7 +25,7 @@ class UserFactory extends Factory
     {
         return [
             'full_name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'email' => $this->faker->userName . '@gmail.com',
             'password' => bcrypt("220204Th#"), // password
             'permission_level' => "1",
             'image' => 'http://localhost/storage/profile/tharshen.jpg',
@@ -40,7 +40,7 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'full_name' => fake()->name(),
-                'email' => fake()->unique()->safeEmail(),
+                'email' => $this->faker->userName . '@gmail.com',
                 'password' => bcrypt("220204Th#"), // password
                 'permission_level' => "2",
                 'image' => fake()->randomElement([
@@ -85,7 +85,7 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'full_name' => fake()->name(),
-                'email' => fake()->unique()->safeEmail(),
+                'email' => $this->faker->userName . '@gmail.com',
                 'password' => bcrypt("220204Th#"), // password
                 'permission_level' => "2",
                 'image' => fake()->randomElement([
@@ -144,7 +144,7 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'full_name' => fake()->name(),
-                'email' => fake()->unique()->safeEmail(),
+                'email' => $this->faker->userName . '@gmail.com',
                 'password' => bcrypt("220204Th#"), // password
                 'permission_level' => "2",
                 'image' => fake()->randomElement([

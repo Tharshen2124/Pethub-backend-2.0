@@ -63,6 +63,22 @@ class PetController extends Controller
         ], 201);
     }
 
+    public function show(string $id)
+    {
+        $pet = Pet::find($id);
+
+        if($pet) {
+            return response()->json([
+                'pet' => $pet
+            ]);
+        } else {
+            return response()->json([
+                'pet' => "Pet not found"
+            ], 404);
+        }
+        
+    }
+
     // update pet information
     public function update(Request $request, string $id)
     {

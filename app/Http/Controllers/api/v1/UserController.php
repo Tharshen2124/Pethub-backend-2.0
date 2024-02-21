@@ -20,10 +20,10 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'full_name' => 'required',
-            'email' => 'required',
-            'password' => ['required', Password::defaults()],
+            'email' => ['required', 'email:rfc,dns'],
+            'password' => ['required', Password::defaults(), 'confirmed'],
             'permission_level' => 'required',
-            'contact_number' => 'required',
+            'contact_number' => ['required', 'regex:/^0[0-9]{9,10}$/'],
             'description' => 'required',
             'image' => 'image',
         ]);
@@ -153,10 +153,10 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'full_name' => 'required',
-            'email' => 'required',
-            'password' => ['required', Password::defaults()],
+            'email' => ['required', 'email:rfc,dns'],
+            'password' => ['required', Password::defaults(), 'confirmed'],
             'permission_level' => 'required',
-            'contact_number' => 'required',
+            'contact_number' => ['required', 'regex:/^0[0-9]{9,10}$/'],
             'description' => 'required',
             'image' => 'required | image',
             'deposit_value' => 'required',
@@ -235,10 +235,10 @@ class UserController extends Controller
         if($user) {
             $validated = $request->validate([
                 'full_name' => 'required',
-                'email' => 'required',
-                'password' => ['required', Password::defaults()],
+                'email' => ['required', 'email:rfc,dns'],
+                'password' => ['required', Password::defaults(), 'confirmed'],
                 'permission_level' => 'required',
-                'contact_number' => 'required',
+                'contact_number' => ['required', 'regex:/^0[0-9]{9,10}$/'],
                 'description' => 'required',
                 'image' => 'image',
             ]);
@@ -278,9 +278,9 @@ class UserController extends Controller
         if($user) {
             $validated = $request->validate([
                 'full_name' => 'required',
-                'email' => 'required',
-                'password' => ['required', Password::defaults()],
-                'contact_number' => 'required',
+                'email' => ['required', 'email:rfc,dns'],
+                'password' => ['required', Password::defaults(), 'confirmed'],
+                'contact_number' => ['required', 'regex:/^0[0-9]{9,10}$/'],
                 'description' => 'required',
                 'image' => 'required | image',
                 'deposit_value' => 'required',

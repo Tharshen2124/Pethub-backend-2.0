@@ -60,7 +60,6 @@ class UserController extends Controller
 
         elseif($permission_level === 2) // register for service provider
         {
-            return "hello fuckface";
             $SP_validated = $request->validate([
                 'image' => 'required | image',
                 'deposit_value' => 'required',

@@ -26,7 +26,7 @@ class UserFactory extends Factory
         return [
             'full_name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'password' => bcrypt("12345"), // password
+            'password' => bcrypt("220204Th#"), // password
             'permission_level' => "1",
             'image' => 'http://localhost/storage/profile/tharshen.jpg',
             'description' => fake()->paragraph(),
@@ -41,7 +41,7 @@ class UserFactory extends Factory
             return [
                 'full_name' => fake()->name(),
                 'email' => fake()->unique()->safeEmail(),
-                'password' => bcrypt("12345"), // password
+                'password' => bcrypt("220204Th#"), // password
                 'permission_level' => "2",
                 'image' => fake()->randomElement([
                     'http://localhost/storage/profile/clinic_1.jpg', 
@@ -86,7 +86,7 @@ class UserFactory extends Factory
             return [
                 'full_name' => fake()->name(),
                 'email' => fake()->unique()->safeEmail(),
-                'password' => bcrypt("12345"), // password
+                'password' => bcrypt("220204Th#"), // password
                 'permission_level' => "2",
                 'image' => fake()->randomElement([
                     'http://localhost/storage/profile/grooming_1.jpg', 
@@ -131,7 +131,7 @@ class UserFactory extends Factory
             return [
                 'full_name' => "Tharshen",
                 'email' => "admin@gmail.com",
-                'password' => bcrypt("12345"), // password
+                'password' => bcrypt("220204Th#"), // password
                 'permission_level' => "3",
                 'image' => 'http://localhost/storage/profile/tharshen.jpg',
                 'user_status' => "approved"
@@ -145,7 +145,7 @@ class UserFactory extends Factory
             return [
                 'full_name' => fake()->name(),
                 'email' => fake()->unique()->safeEmail(),
-                'password' => bcrypt("12345"), // password
+                'password' => bcrypt("220204Th#"), // password
                 'permission_level' => "2",
                 'image' => fake()->randomElement([
                     'http://localhost/storage/profile/clinic_1.jpg', 

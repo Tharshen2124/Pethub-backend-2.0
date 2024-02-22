@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Models\Pet;
 use App\Models\User;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePetRequest;
@@ -128,11 +129,19 @@ class PetController extends Controller
         $pet = Pet::find($id);
         
         if($pet) {
-            $pet->delete();
+            $appointment = Appointment::where('pet_id', $id)->first();
+            
+            if($appointment) {
+                return response()->json([
+                    'error' => 'Deletion failed. Pet has several appointments under it'
+                ], 403);
+            } else {
+                $pet->delete();
 
-            return response()->json([
-                'message' => 'Successfully deleted pet information',
-            ]);
+                return response()->json([
+                    'message' => 'Successfully deleted pet information',
+                ]);
+            }
         } else {
             return response()->json([
                 'error' => 'Pet not found'

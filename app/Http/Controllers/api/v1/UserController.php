@@ -265,12 +265,12 @@ class UserController extends Controller
     {
         $existingUser = User::where('email', $request->email)->first();
         
-        if($existingUser && $existingUser->user_status !== 'rejected') {
+        if($existingUser && $existingUser->user_status !== 'rejected' && $existingUser->user_id !== $id) {
             return response()->json([
                 'message' => "Unauthorized request, this email has been used already",
             ], 403);
         }
-        if ($existingUser && $existingUser->user_status === 'rejected') {
+        if ($existingUser && $existingUser->user_status === 'rejected' && $existingUser->user_id !== $id) {
             return response()->json([
                 'message' => "Unauthorized request, this email has been banned",
             ], 403);

@@ -18,6 +18,14 @@ class UserController extends Controller
     //register new user
     public function register(Request $request)
     {
+        $existingUser = User::where('email', $request->email)->first();
+        
+        if ($existingUser && $existingUser->user_status == 'rejected') {
+            return response()->json([
+                'message' => "Unauthorized request, this email has been banned",
+            ], 403);
+        }
+
         $validated = $request->validate([
             'full_name' => 'required',
             'email' => ['required', 'email:rfc,dns'],

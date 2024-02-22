@@ -139,15 +139,6 @@ class UserController extends Controller
     // login user
     public function login(LoginUserRequest $request)
     {
-        $validated = $request->validate([
-            'full_name' => 'required',
-            'email' => ['required', 'email:rfc,dns'],
-            'password' => ['required', Password::defaults(), 'confirmed'],
-            'permission_level' => 'required',
-            'contact_number' => ['required', 'regex:/^0[0-9]{9,10}$/'],
-            'description' => 'required',
-        ]);
-
         $request->validated();
 
         $auth = Auth::attempt(['email' => $request->email, 'password' => $request->password]);

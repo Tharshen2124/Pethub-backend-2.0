@@ -40,7 +40,7 @@ class NewsController extends Controller
             {
                 $image = $request->file('image')->store('public/news_image');
                 $img = basename($image);
-                $linkToImage = asset('storage/payment_proof/'.$img);
+                $linkToImage = asset('storage/news_image/'.$img);
             }
             
             $news = News::create([

@@ -44,6 +44,48 @@ class AppointmentController extends Controller
         
     }
 
+    //Store a newly made appointment
+    public function store_for_grooming(Request $request)
+    {
+        $user = auth('sanctum')->user();
+        if($user->permission_level === '1') {
+            
+            $value = $request->validate([
+                'user_id' => 'required',
+                'pet_id' => 'required',
+                'pet_service_provider_ref' => 'required',
+                'appointment_type' => 'required',
+                'date' => 'required',
+                'time' => 'required',
+                'important_details' => 'required',
+            ]);
+
+            $appointment = Appointment::create([
+                'user_id' => $value['user_id'],
+                'pet_id' => $value['pet_id'],
+                'pet_service_provider_ref' => $value['pet_service_provider_ref'],
+                'appointment_type' => $value['appointment_type'], // healthcare, grooming
+                'date' => $value['date'],
+                'time' => $value['time'],
+                'important_details' => $value['important_details'],
+                'appointment_status' => 'pending'
+            ]);
+
+            return response()->json([
+                'message' => 'First half of appointment procedure done',
+                'appointment' => $appointment
+            ], 201);
+
+        } else {
+            return response()->json([
+                'error' => 'Unauthorised request'
+            ], 403);
+        }
+        
+    }
+
+    
+
     public function update_with_proof(Request $request, string $id)
     {
         $appointment = Appointment::find($id);

@@ -66,6 +66,7 @@ Route::group(['prefix' => 'v1'], function () {
         
         // user appointment routes
         Route::post('/appointments', [AppointmentController::class, 'store']);
+        Route::post('/appointments/grooming', [AppointmentController::class, 'store_for_grooming']);
         Route::post('/appointments/payment_proof/{aptid}', [AppointmentController::class, 'update_with_proof']);
         Route::get('/appointments', [AppointmentController::class, 'index']);
         Route::get('/appointments/{aptid}', [AppointmentController::class, 'show']);

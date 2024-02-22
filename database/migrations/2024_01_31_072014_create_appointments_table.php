@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('date');
             $table->time('time');
             $table->text('important_details');
-            $table->text('issue_description');
+            $table->text('issue_description')->nullable();
             $table->string('appointment_status');
             $table->string('upload_payment_proof')->nullable();
             $table->timestamp('created_at')->default(now());

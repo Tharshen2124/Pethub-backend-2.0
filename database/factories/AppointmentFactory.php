@@ -60,7 +60,6 @@ class AppointmentFactory extends Factory
             'date' => fake()->date(),
             'time' => fake()->time(),
             'important_details' => fake()->text(),
-            'issue_description' => fake()->text(),
             'appointment_status' => fake()->randomElement(['approved', 'pending']),
             'upload_payment_proof' => "http://localhost/storage/payment_proof/payment_proof.jpg",
         ];

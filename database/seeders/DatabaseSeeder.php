@@ -162,6 +162,16 @@ class DatabaseSeeder extends Seeder
             ->count(1)
             ->create();
 
+        User::factory()
+            ->wei_jie()
+            ->count(1)
+            ->create();
+        
+        User::factory()
+            ->chong()
+            ->count(1)
+            ->create();
+            
         // Creates service providers with pending acc
         $pending_sp_ids = User::factory()
             ->serviceProviderIsPending()

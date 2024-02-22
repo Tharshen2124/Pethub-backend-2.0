@@ -77,6 +77,7 @@ class DatabaseSeeder extends Seeder
         for ($x = 0; $x < 10; $x++) {
             for ($y = 0; $y < 5; $y++) {
                 Appointment::factory()
+                    ->grooming_facilities()
                     ->create([
                         'user_id' => $userIds[$x],
                         'pet_service_provider_ref' => $grooming_facilitiesIds->random(),

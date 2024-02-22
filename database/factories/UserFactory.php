@@ -36,7 +36,7 @@ class UserFactory extends Factory
                 "As an animal lover, my home is a sanctuary for furry companions. Whether I'm adopting senior pets or fostering homeless animals, I dedicate my time and resources to making a difference in their lives, one paw at a time.",
                 "My passion for pets drives me to advocate for their welfare and spread awareness about responsible pet ownership. From organizing pet playdates to volunteering at local shelters, I'm deeply committed to ensuring every furry friend finds a loving home.",
             ]),
-            'contact_number' => fake()->numerify('0#########'),
+            'contact_number' => fake()->numerify('01########'),
             'user_status' => "approved"
         ];
     }
@@ -88,7 +88,7 @@ class UserFactory extends Factory
                     "With our advanced diagnostic capabilities and cutting-edge technology, our pet healthcare facility is equipped to handle a wide range of medical conditions and illnesses. From digital X-rays to ultrasound imaging, we provide accurate diagnoses and personalized treatment plans tailored to your pet's unique needs.",
                     "At our pet healthcare facility, we believe in the importance of a holistic approach to pet wellness. In addition to traditional veterinary services, we offer alternative therapies such as acupuncture, physical therapy, and herbal medicine, providing comprehensive care to address your pet's physical, emotional, and behavioral needs.",
                 ]),
-                'contact_number' => fake()->numerify('+60-0##-#######'),
+                'contact_number' => fake()->numerify('01########'),
                 'opening_hour' => fake()->randomElement([
                     '12:00:00',
                     '10:00:00',
@@ -156,7 +156,7 @@ class UserFactory extends Factory
                 'deposit_value' => fake()->randomFloat(1, 10, 20),
                 'service_type' => "grooming",
                 'description' => fake()->paragraph(),
-                'contact_number' => fake()->numerify('0#########'),
+                'contact_number' => fake()->numerify('01########'),
                 'opening_hour' => fake()->randomElement([
                     '12:00:00',
                     '10:00:00',
@@ -215,7 +215,7 @@ class UserFactory extends Factory
                 'deposit_value' => fake()->randomFloat(1, 10, 20),
                 'service_type' => "healthcare",
                 'description' => fake()->paragraph(),
-                'contact_number' => fake()->numerify('0#########'),
+                'contact_number' => fake()->numerify('01########'),
                 'opening_hour' => fake()->time(),
                 'closing_hour' => fake()->time(),
                 'bank_name' => fake()->randomElement(['Maybank', 'CIMB', 'DuitNow']),
@@ -242,7 +242,7 @@ class UserFactory extends Factory
                 'permission_level' => "1",
                 'image' => 'http://localhost/storage/profile/tharshen.jpg',
                 'description' => fake()->paragraph(),
-                'contact_number' => fake()->numerify('+60-0##-#######'),
+                'contact_number' => fake()->numerify('01########'),
                 'user_status' => "approved"
             ];
         });
@@ -258,7 +258,7 @@ class UserFactory extends Factory
                 'permission_level' => "1",
                 'image' => 'http://localhost/storage/profile/tharshen.jpg',
                 'description' => fake()->paragraph(),
-                'contact_number' => fake()->numerify('+60-0##-#######'),
+                'contact_number' => fake()->numerify('01########'),
                 'user_status' => "approved"
             ];
         });

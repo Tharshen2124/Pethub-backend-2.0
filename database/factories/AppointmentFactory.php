@@ -79,6 +79,7 @@ class AppointmentFactory extends Factory
                     'can get rashes when its hot',
                     'cannot survive cold weather',
                 ]),
+                'issue_description' => null,
                 'appointment_status' => fake()->randomElement(['approved', 'pending']),
                 'upload_payment_proof' => "http://localhost/storage/payment_proof/payment_proof.jpg",
             ];

@@ -121,7 +121,9 @@ class AppointmentController extends Controller
     public function index()
     {
         $user = auth('sanctum')->user();
-        $appointments = $user->appointments()->with('serviceProvider')->get();
+        $appointments = $user->appointments()->with('serviceProvider')
+            ->orderBy('created_at', 'desc')
+            ->get();
         return response()->json([
           'appointments' => $appointments
         ]);
@@ -165,6 +167,7 @@ class AppointmentController extends Controller
             $appointments = Appointment::with('pet')
                 ->where('pet_service_provider_ref', $spref)
                 ->where('appointment_status', 'pending')
+                ->orderBy('created_at', 'desc')
                 ->get() ?? null;
 
             if($appointments) {

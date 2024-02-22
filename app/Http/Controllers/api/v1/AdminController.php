@@ -19,7 +19,9 @@ class AdminController extends Controller
     // show pet service providers where their status are pending
     public function show_service_provider()
     {
-        $user = User::where('user_status', 'pending')->get();
+        $user = User::where('user_status', 'pending')
+            ->orderBy('created_at', 'desc')
+            ->get();
         
         return response()->json([
             'users' => $user
@@ -61,6 +63,7 @@ class AdminController extends Controller
     {
         $news = News::where('news_status', 'pending')
             ->with('user', 'categories')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return response()->json([
@@ -95,7 +98,9 @@ class AdminController extends Controller
     // display all reports
     public function show_reports()
     {
-        $report = Report::with('user')->get();
+        $report = Report::with('user')
+            ->orderBy('created_at', 'desc')
+            ->get();
         
         return response()->json(['report' => $report]);
     }
@@ -111,7 +116,9 @@ class AdminController extends Controller
     // show all the users
     public function show_all_users()
     {
-        $user = User::where('user_status', 'approved')->get();
+        $user = User::where('user_status', 'approved')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return response()->json(['user' => $user]);
     }

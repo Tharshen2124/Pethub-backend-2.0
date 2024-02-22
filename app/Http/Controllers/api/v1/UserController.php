@@ -259,26 +259,17 @@ class UserController extends Controller
                 'password' => ['required', Password::defaults(), 'confirmed'],
                 'permission_level' => 'required',
                 'contact_number' => ['required', 'regex:/^0[0-9]{9,10}$/'],
-                'description' => 'required',
-                'image' => 'image',
+                'description' => 'required',   
             ]);
     
             $password = Hash::make($validated['password']); // register for regular user
-            
-            if($request->hasFile('image'))
-            {
-                $profile = $request->file('image')->store('public/profile');
-                $img = basename($profile);
-                $linkToImage = asset('storage/profile/'.$img);
-            }
-    
+
             $user->update([
                 'full_name' => $validated['full_name'],
                 'email' => $validated['email'],
                 'password' => $password,
                 'contact_number' => $validated['contact_number'],
                 'description' => $validated['description'],
-                'image' =>  $linkToImage,
             ]);
 
             return response()->json([
@@ -302,7 +293,6 @@ class UserController extends Controller
                 'password' => ['required', Password::defaults(), 'confirmed'],
                 'contact_number' => ['required', 'regex:/^0[0-9]{9,10}$/'],
                 'description' => 'required',
-                'image' => 'required | image',
                 'deposit_value' => 'required',
                 'service_type' => 'required', Rule::in(['grooming', 'healthcare']),  
                 'opening_hour' => 'required',
@@ -311,30 +301,14 @@ class UserController extends Controller
                 'beneficiary_acc_number' => 'required',
                 'beneficiary_name' => 'required',
                 'facility_location' => 'required',
-                'qr_code_image' => 'required | image',
             ]);
     
             $password = Hash::make($validated['password']); // register for regular user
-            
-            if($request->hasFile('image'))
-            {
-                $profile = $request->file('image')->store('public/profile');
-                $img = basename($profile);
-                $linkToImage = asset('storage/profile/'.$img);
-            }
-
-            if($request->hasFile('qr_code_image')) 
-            {
-                $qr_code_image = $request->file('qr_code_image')->store('public/qr_code');
-                $img2 = basename($qr_code_image);
-                $linkToQR = asset('storage/qr_code/'.$img2);
-            }
     
             $user->update([
                 'full_name' => $validated['full_name'],
                 'email' => $validated['email'],
                 'password' => $password,
-                'image' => $linkToImage,
                 'contact_number' => $validated['contact_number'],
                 'description' => $validated['description'],
                 'deposit_value' => $validated['deposit_value'],
@@ -345,7 +319,6 @@ class UserController extends Controller
                 'facility_location' => $validated['facility_location'],
                 'beneficiary_acc_number' => $validated['beneficiary_acc_number'],
                 'beneficiary_name' => $validated['beneficiary_name'],
-                'qr_code_image' => $linkToQR,
             ]);
 
             return response()->json([

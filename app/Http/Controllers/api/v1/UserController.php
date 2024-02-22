@@ -80,7 +80,7 @@ class UserController extends Controller
                 'opening_hour' => 'required',
                 'closing_hour' => 'required',
                 'bank_name' => 'required',
-                'beneficiary_acc_number' => 'required',
+                'beneficiary_acc_number' => ['required', 'regex:/^\d{1,20}$/'],
                 'beneficiary_name' => 'required',
                 'qr_code_image' => 'required | image',
                 'sssm_certificate' => 'required | file',
@@ -139,6 +139,15 @@ class UserController extends Controller
     // login user
     public function login(LoginUserRequest $request)
     {
+        $validated = $request->validate([
+            'full_name' => 'required',
+            'email' => ['required', 'email:rfc,dns'],
+            'password' => ['required', Password::defaults(), 'confirmed'],
+            'permission_level' => 'required',
+            'contact_number' => ['required', 'regex:/^0[0-9]{9,10}$/'],
+            'description' => 'required',
+        ]);
+
         $request->validated();
 
         $auth = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
@@ -171,6 +180,19 @@ class UserController extends Controller
 
     public function registerServiceProvider(Request $request)
     {
+        $existingUser = User::where('email', $request->email)->first();
+        
+        if($existingUser && $existingUser->user_status !== 'rejected') {
+            return response()->json([
+                'message' => "Unauthorized request, this email has been used already",
+            ], 403);
+        }
+        if ($existingUser && $existingUser->user_status === 'rejected') {
+            return response()->json([
+                'message' => "Unauthorized request, this email has been banned",
+            ], 403);
+        }
+
         $validated = $request->validate([
             'full_name' => 'required',
             'email' => ['required', 'email:rfc,dns'],
@@ -185,7 +207,7 @@ class UserController extends Controller
             'closing_hour' => 'required',
             'facility_location' => 'required',
             'bank_name' => 'required',
-            'beneficiary_acc_number' => 'required',
+            'beneficiary_acc_number' => ['required', 'regex:/^\d{1,20}$/'],
             'beneficiary_name' => 'required',
             'qr_code_image' => 'required | image',
             'sssm_certificate' => 'required | file',
@@ -250,6 +272,19 @@ class UserController extends Controller
 
     public function editPetOwner(Request $request, string $id)
     {
+        $existingUser = User::where('email', $request->email)->first();
+        
+        if($existingUser && $existingUser->user_status !== 'rejected') {
+            return response()->json([
+                'message' => "Unauthorized request, this email has been used already",
+            ], 403);
+        }
+        if ($existingUser && $existingUser->user_status === 'rejected') {
+            return response()->json([
+                'message' => "Unauthorized request, this email has been banned",
+            ], 403);
+        }
+
         $user = User::find($id);
         
         if($user) {
@@ -284,6 +319,19 @@ class UserController extends Controller
 
     public function editServiceProvider(Request $request, string $id)
     {
+        $existingUser = User::where('email', $request->email)->first();
+        
+        if($existingUser && $existingUser->user_status !== 'rejected') {
+            return response()->json([
+                'message' => "Unauthorized request, this email has been used already",
+            ], 403);
+        }
+        if ($existingUser && $existingUser->user_status === 'rejected') {
+            return response()->json([
+                'message' => "Unauthorized request, this email has been banned",
+            ], 403);
+        }
+
         $user = User::find($id);
         
         if($user) {
@@ -298,7 +346,8 @@ class UserController extends Controller
                 'opening_hour' => 'required',
                 'closing_hour' => 'required',
                 'bank_name' => 'required',
-                'beneficiary_acc_number' => 'required',
+                'beneficiary_acc_number' => ['required', 'regex:/^\d{1,20}$/'],
+
                 'beneficiary_name' => 'required',
                 'facility_location' => 'required',
             ]);

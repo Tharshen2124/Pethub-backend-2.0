@@ -31,6 +31,7 @@ class NewsController extends Controller
         $validated = $request->validate([
             'news_title' => 'required',
             'news_description' => 'required',
+            'image' => 'required | file',
             'user_id' => 'required',
             'categories' => 'required'
         ]);

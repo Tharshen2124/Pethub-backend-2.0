@@ -13,6 +13,7 @@ use App\Models\Category;
 use App\Models\Appointment;
 use App\Models\Certificate;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -191,4 +192,6 @@ class DatabaseSeeder extends Seeder
             ->count(10)
             ->create();
     }
+
+    Hash::make()
 }

@@ -61,6 +61,7 @@ Route::group(['prefix' => 'v1'], function () {
         ]);
         Route::post('/pets/{id}', [PetController::class, 'update']);
 
+
         // service provider "healthcare" and "grooming" routes
         Route::get('/service-provider/{spid}', [ServiceProviderController::class, 'moreInfo']);
         
